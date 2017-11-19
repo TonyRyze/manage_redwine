@@ -34,6 +34,7 @@
 	import axios from 'axios'
 	import cloneDepp from 'clone-deep'
 	import { mapMutations, mapState } from 'vuex'
+	import Conf from '@/config'
 
 	export default {
 
@@ -41,8 +42,8 @@
 
 	data(){
 		return {
-			actions: 'http://localhost:3001/postbanner/',
-			postFileUrl: 'http://localhost:3001/postfile/',
+			actions: Conf.api.postbanner,
+			postFileUrl: Conf.api.postfile,
 			loading: false,
 			rules: {
 				bannerImage: [
@@ -93,7 +94,8 @@
 		computed: {
 
 			...mapState({
-				banner: state => state.banner.banner
+				banner: state => state.banner.banner,
+				breadCrumb: state => state.breadCrumb
 			}),
 
 			bannerImage: {
@@ -146,8 +148,6 @@
 		    	const data = cloneDepp(this.banner),
 		    		  _this = this;
 
-		    	console.log(data)
-
 		    	this.$refs[formName].validate((valid) => {
 
 		    		if (valid) {
@@ -159,7 +159,7 @@
 			    				method: 'post',
 			    				url: _this.actions,
 			    				data: data.bannerImage,
-			    				timeout: 2000,
+			    				timeout: 10000,
 			    			})
 			    			.then(function(response) {
 
@@ -205,7 +205,9 @@
 		},
 
 		mounted(){
-			
+			this.$nextTick(() => {
+				this.$store.commit('INITCRUMB', ['首页轮播','添加banner图'])
+	      	});
 		},
 
 		components: {

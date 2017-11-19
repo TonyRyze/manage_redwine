@@ -1,4 +1,4 @@
-// 添加产品模块
+// 添加活动模块
 import Vue from 'vue'
 import * as types from '../mutations'
 

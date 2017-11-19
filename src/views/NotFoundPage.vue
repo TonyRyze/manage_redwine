@@ -1,6 +1,6 @@
 <template>
   <div class="not-found-page">
-    404
+    抱歉，找不到当前页面！
   </div>
 </template>
 
@@ -25,6 +25,11 @@ export default {
 }
 </script>
 
-<style>
-  
+<style scoped>
+  .not-found-page{
+    font-size: 50px;
+    text-align: center;
+    color: #666;
+    font-weight: bold;
+  }
 </style>

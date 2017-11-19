@@ -90,6 +90,7 @@
 	import axios from 'axios'
 	import cloneDepp from 'clone-deep'
 	import { mapMutations, mapState } from 'vuex'
+	import Conf from '@/config'
 
 	export default {
 
@@ -97,8 +98,8 @@
 
 	data(){
 		return {
-			actions: 'http://localhost:3001/uploadwines/',
-			postFileUrl: 'http://localhost:3001/postfile/',
+			actions: Conf.api.uploadwines,
+			postFileUrl: Conf.api.postfile,
 			loading: false,
 			rules: {
 				area: [
@@ -309,7 +310,8 @@
 		computed: {
 
 			...mapState({
-				forms: state => state.addProduct.forms
+				forms: state => state.addProduct.forms,
+				breadCrumb: state => state.breadCrumb
 			}),
 
 			smallImage: {
@@ -500,8 +502,6 @@
 
 		    	data.listImage = Object.assign({}, listImage[0])
 
-		    	console.log(data)
-
 		    	this.$refs[formName].validate((valid) => {
 
 		    		if (valid) {
@@ -513,7 +513,7 @@
 			    				method: 'post',
 			    				url: _this.actions,
 			    				data: data,
-			    				timeout: 2000,
+			    				timeout: 10000,
 			    			})
 			    			.then(function(response) {
 
@@ -557,7 +557,9 @@
 		},
 
 		mounted(){
-			
+			this.$nextTick(() => {
+			    this.$store.commit('INITCRUMB', ['产品管理','添加产品'])
+			})
 		},
 
 		components: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="rw-editactive" v-loading="loading">
+  <div class="rw-editactive" v-loading="loading" v-if="!loading">
     <el-table
       :data="tableData"
       border
@@ -98,6 +98,7 @@
   import axios from 'axios'
   import cloneDepp from 'clone-deep'
   import { mapMutations, mapState } from 'vuex'
+  import Conf from '@/config'
 
   export default {
 
@@ -105,10 +106,10 @@
 
     data(){
         return {
-          activeUrl: 'http://localhost:3001/getactives/',
-          actions: 'http://localhost:3001/editactives/',
-          postFileUrl: 'http://localhost:3001/postfile/',
-          delActives: 'http://localhost:3001/deleteactives/',
+          activeUrl: Conf.api.getactives,
+          actions: Conf.api.editactives,
+          postFileUrl: Conf.api.postfile,
+          delActives: Conf.api.deleteactives,
           loading: true,
           dialogVisible: false,
           tableData: [],
@@ -220,7 +221,8 @@
     computed: {
 
       ...mapState({
-        actives: state => state.editActive.actives
+        actives: state => state.editActive.actives,
+        breadCrumb: state => state.breadCrumb
       }),
 
       listImg: {
@@ -279,7 +281,6 @@
         let obj = Object.assign({}, this.actives, row);
         obj.listImg = [];
         obj.detailImg = [];
-        console.log(obj)
         this.$store.commit('EDITACITVEFORM', obj);
         this.dialogVisible = true;
       },
@@ -506,6 +507,9 @@
 
     mounted(){
       this.getActives();
+      this.$nextTick(() => {
+        this.$store.commit('INITCRUMB', ['活动管理','编辑活动'])
+      });
     },
 
     components: {

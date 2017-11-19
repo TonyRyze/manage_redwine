@@ -1,5 +1,5 @@
 <template>
-  <div class="rw-editproduct" v-loading="loading">
+  <div class="rw-editproduct" v-loading="loading" v-if="!loading">
     <el-table
       :data="tableData"
       border
@@ -141,6 +141,7 @@
   import axios from 'axios'
   import cloneDepp from 'clone-deep'
   import { mapMutations, mapState } from 'vuex'
+  import Conf from '@/config'
 
   export default {
 
@@ -148,10 +149,10 @@
 
     data(){
         return {
-          productUrl: 'http://localhost:3001/getwines/',
-          actions: 'http://localhost:3001/editwines/',
-          postFileUrl: 'http://localhost:3001/postfile/',
-          delProductUrl: 'http://localhost:3001/deletewines/',
+          productUrl: Conf.api.getwines,
+          actions: Conf.api.editwines,
+          postFileUrl: Conf.api.postfile,
+          delProductUrl: Conf.api.deletewines,
           loading: true,
           dialogVisible: false,
           tableData: [],
@@ -355,7 +356,8 @@
     computed: {
 
       ...mapState({
-        forms: state => state.editProduct.forms
+        forms: state => state.editProduct.forms,
+        breadCrumb: state => state.breadCrumb
       }),
 
       smallImage: {
@@ -646,8 +648,6 @@
 
           data.listImage = Object.assign({}, listImage[0]);
 
-          console.log(data)
-
           this.$refs[formName].validate((valid) => {
 
             if (valid) {
@@ -675,7 +675,6 @@
                         }
                         return v;
                       });
-                      console.log(_this.tableData)
                       _this.$message.success('您已成功编辑一条产品！');
 
                       _this.$refs.smallIamgeUpload.submit();
@@ -716,6 +715,9 @@
 
     mounted(){
       this.getProducts();
+      this.$nextTick(() => {
+          this.$store.commit('INITCRUMB', ['产品管理','编辑产品'])
+      });
     },
 
     components: {

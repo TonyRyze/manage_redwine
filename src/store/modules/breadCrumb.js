@@ -1,4 +1,5 @@
-// 添加产品模块
+// 面包屑
+import Vue from 'vue'
 import * as types from '../mutations'
 
 const state = {
@@ -12,7 +13,7 @@ const mutations = {
     [types.CRUMBCHANGE] (state, key) {
 
         const crumbObj = {
-            '1': [],
+            '1': [''],
             '2-1': ['产品管理','添加产品'],
             '2-2': ['产品管理','编辑产品'],
             '3-1': ['首页轮播','添加banner图'],
@@ -27,6 +28,12 @@ const mutations = {
         }
 
         state.crumbData = crumbObj[key]
+
+    },
+    
+    [types.INITCRUMB] (state, payload) {
+
+        state.crumbData = Object.assign([], state.crumbData, payload)
 
     }
 

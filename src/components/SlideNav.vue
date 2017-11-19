@@ -1,7 +1,9 @@
 <template>
 	<div class="slide-nav">
 		<el-menu default-active="1" router class="el-menu-vertical-demo" @select="CRUMBCHANGE" theme="dark">
-			<el-menu-item index="1" :route="{path: '/'}">首页</el-menu-item>
+			<el-menu-item index="1" :route="{
+					path: '/'
+				}">首页</el-menu-item>
 			<el-submenu index="2">
 				<template slot="title">产品管理</template>
 				<el-menu-item index="2-1" :route="{

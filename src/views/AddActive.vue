@@ -59,6 +59,7 @@
 	import axios from 'axios'
 	import cloneDepp from 'clone-deep'
 	import { mapMutations, mapState } from 'vuex'
+	import Conf from '@/config'
 
 	export default {
 
@@ -66,8 +67,8 @@
 
 	data(){
 		return {
-			actions: 'http://localhost:3001/uploadactives/',
-			postFileUrl: 'http://localhost:3001/postfile/',
+			actions: Conf.api.uploadactives,
+			postFileUrl: Conf.api.postfile,
 			loading: false,
 			rules: {
 				titleFirst: [
@@ -183,7 +184,8 @@
 		computed: {
 
 			...mapState({
-				actives: state => state.addActive.actives
+				actives: state => state.addActive.actives,
+				breadCrumb: state => state.breadCrumb
 			}),
 
 			listImg: {
@@ -302,8 +304,6 @@
 
 		    	data.detailImg = Object.assign([], detailImg);
 
-		    	console.log(data)
-
 		    	this.$refs[formName].validate((valid) => {
 
 		    		if (valid) {
@@ -315,7 +315,7 @@
 			    				method: 'post',
 			    				url: _this.actions,
 			    				data: data,
-			    				timeout: 2000,
+			    				timeout: 10000
 			    			})
 			    			.then(function(response) {
 
@@ -358,7 +358,9 @@
 		},
 
 		mounted(){
-			
+			this.$nextTick(() => {
+				this.$store.commit('INITCRUMB', ['活动管理','添加活动'])
+	      	});
 		},
 
 		components: {

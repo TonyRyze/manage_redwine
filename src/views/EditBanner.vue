@@ -1,5 +1,5 @@
 <template>
-	<div class="rw-banner" v-loading="loading">
+	<div class="rw-banner" v-loading="loading" v-if="!loading">
 		<div class="banner-list">
 			<el-row :gutter="20" v-for="(item, index) in bannerData" class="v-list" :key="item.name">
 		  		<el-col :span="20">
@@ -22,6 +22,7 @@
 	import axios from 'axios'
 	import cloneDepp from 'clone-deep'
 	import { mapMutations, mapState } from 'vuex'
+	import Conf from '@/config'
 
 	export default {
 
@@ -29,15 +30,17 @@
 
 		data(){
 			return {
-				bannerUrl: 'http://localhost:3001/getbanner/',
-				delBannerUrl: 'http://localhost:3001/deletebanner/',
+				bannerUrl: Conf.api.getbanner,
+				delBannerUrl: Conf.api.deletebanner,
 				loading: false,
 				bannerData: []
 			}
 		},
 
 		computed: {
-			
+			...mapState({
+				breadCrumb: state => state.breadCrumb
+			}),
 		},
 
 		methods: {
@@ -100,6 +103,9 @@
 
 		mounted(){
 			this.getBanner();
+			this.$nextTick(() => {
+				this.$store.commit('INITCRUMB', ['首页轮播','编辑banner图'])
+	      	});
 		},
 
 		components: {

@@ -1,23 +1,20 @@
 <template>
   <div class="home-page">
     <el-row :gutter="0" class="full-height box-wrap">
-      	<el-col :span="5" class="full-height nav-box">
+      	<el-col :span="5" class="full-height nav-box" v-if="loginStatus">
               <div class="grid-content content-left">
                 <slide-nav></slide-nav>
               </div>
         </el-col>
       	<el-col :span="19" class="active-panel">
-            <div class="right-header">
+            <div class="right-header" v-if="loginStatus">
                 <div class="bread-crumb">
                     <el-breadcrumb separator="/">
-                        <el-breadcrumb-item :to="{path: '/'}">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item v-for="(item, index) in this.$store.state.breadCrumb.crumbData" :key="index" class="no-jump">{{item}}</el-breadcrumb-item>
+                        <el-breadcrumb-item v-for="(item, index) in this.crumbData" :key="index" class="no-jump">{{item}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
                 <div class="login-status">
-                    <span class="login" @click="INCREMENT({
-                    amount: 12
-                })">登录</span>
+                    <span class="login">{{account}}</span>
                 </div>
             </div>
             <div class="grid-content content-right">
@@ -39,41 +36,32 @@
 
         data(){
             return {
-                localCount: 19,
-                todos: [1,2,3,4,5,6]
+                userName: this.account || ''
             }
         },
 
         mounted(){
-            
+
         },
 
         methods: {
-            ...mapMutations([
-                'INCREMENT', // 将 `this.INCREMENT()` 映射为 `this.$store.commit('INCREMENT')`
-            ])
+            
         },
         
         // 当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。
-        // mapState(['count']) 映射 this.count 为 store.state.count
+        // mapState(['crumbData']) 映射 this.crumbData 为 store.state.crumbData
         computed: {
             // 箭头函数可使代码更简练
-            // 传字符串参数 'count' 等同于 state => state.count
+            // 传字符串参数 'crumbData' 等同于 state => state.crumbData
             ...mapState({
 
-                count: state => state.count,
-                
-                countAlias: 'count',
-              
-                countPlusLocalState (state) {
-                    return state.count + this.localCount
-                }
+                crumbData: state => state.breadCrumb.crumbData,
 
-            }),
-            // mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性：
-            ...mapGetters([     // 使用对象展开运算符将 getter 混入 computed 对象中
-                'doneTodos',
-            ]),
+                account: state => state.login.loginData.account,
+
+                loginStatus: state => state.login.loginStatus
+
+            })
 
         },
 
@@ -120,17 +108,20 @@
     }
     .login-status .login{
         color: #999;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: bold;
     }
     .content-left{
 		height: 100%;
 		background-color: #324157;
 	}
     .content-right{
+        position: relative;
         flex: 1;
 		background-color: #fff;
-		padding: 20px;
+		margin: 20px;
         overflow: auto;
+        overflow-x: hidden;
 	}
     .no-jump .el-breadcrumb__item__inner{
         color: #97a8be;

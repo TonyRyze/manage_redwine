@@ -7,6 +7,7 @@ import breadCrumb from './modules/breadCrumb'
 import editProduct from './modules/editProduct'
 import banner from './modules/banner'
 import addActive from './modules/addActive'
+import login from './modules/login'
 import editActive from './modules/editActive'
 import withSnapshot from '@/plugins/withSnapshot'
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
 	actions,
 	getters,
 	modules: {
+		login,
 		addProduct,
 		breadCrumb,
 		editProduct,
