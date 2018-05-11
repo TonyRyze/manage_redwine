@@ -1,5 +1,5 @@
 <template>
-  <div class="rw-editactive" v-loading="loading" v-if="!loading">
+  <div class="rw-editactive" v-loading="loading">
     <el-table
       :data="tableData"
       border
@@ -50,7 +50,7 @@
           <el-upload
             accept="image/jpeg,image/jpg,image/png"
             class="upload-demo"
-            name="simage"
+            name="avtiveSimage"
             multiple
             ref="activeListIamgeUpload"
             list-type="picture"
@@ -69,7 +69,7 @@
           <el-upload
             accept="image/jpeg,image/jpg,image/png"
             class="upload-demo"
-            name="bimage"
+            name="avtiveBimage"
             multiple
             ref="activeDetailIamgeUpload"
             list-type="picture"
@@ -438,8 +438,6 @@
 
     	data.detailImg = Object.assign([], detailImg);
 
-          console.log(data)
-
           this.$refs[formName].validate((valid) => {
 
             if (valid) {
@@ -454,30 +452,26 @@
                 })
                 .then(function(response) {
                   
-                  setTimeout(function(){
+                  _this.loading = false;
+                  _this.dialogVisible = false;
 
-                    _this.loading = false;
-                    _this.dialogVisible = false;
+                  if(response.data === 'success'){
 
-                    if(response.data === 'success'){
+                    _this.tableData = _this.tableData.map(function(v, i) {
+                      if(v._id == _this.actives._id){
+                        v = Object.assign({}, _this.actives);
+                      }
+                      return v;
+                    });
 
-                      _this.tableData = _this.tableData.map(function(v, i) {
-                        if(v._id == _this.actives._id){
-                          v = Object.assign({}, _this.actives);
-                        }
-                        return v;
-                      });
-                      console.log(_this.tableData)
-                      _this.$message.success('您已成功编辑一条产品！');
+                    _this.$message.success('您已成功编辑一条产品！');
 
-                      _this.$refs.activeListIamgeUpload.submit();
-                      _this.$refs.activeDetailIamgeUpload.submit();
+                    _this.$refs.activeListIamgeUpload.submit();
+                    _this.$refs.activeDetailIamgeUpload.submit();
 
-                      _this.$store.commit('EMPTYFORM');
+                    _this.$store.commit('EMPTYFORM');
 
-                    }
-
-                  }, 1000);
+                  }
                   
                 })
                 .catch(function (error) {

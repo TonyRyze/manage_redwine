@@ -1,5 +1,5 @@
 <template>
-  <div class="rw-editproduct" v-loading="loading" v-if="!loading">
+  <div class="rw-editproduct" v-loading="loading">
     <el-table
       :data="tableData"
       border
@@ -54,21 +54,23 @@
       :visible.sync="dialogVisible"
       size="small">
       <el-form ref="editEleForm" label-width="80px" :rules="rules" :model="this.forms" enctype="multipart/form-data">
-        <el-form-item label="葡萄酒产国" label-width="100px" prop="country" required>
+        <el-form-item label="葡萄酒产国" label-width="110px" prop="country" required>
           <el-input v-model="country" readonly></el-input>
         </el-form-item>
-        <el-form-item label="葡萄酒名称" label-width="100px" prop="name" required>
+        <el-form-item label="葡萄酒产地" label-width="110px" prop="area" required>
+          <el-input v-model="area"></el-input>
+        </el-form-item>
+        <el-form-item label="葡萄酒名称" label-width="110px" prop="name" required>
           <el-input v-model="name"></el-input>
         </el-form-item>
-        <el-form-item label="葡萄酒类型" label-width="100px" prop="types" required>
+        <el-form-item label="葡萄酒类型" label-width="110px" prop="types" required>
           <el-input v-model="types"></el-input>
         </el-form-item>
-        <el-form-item label="葡萄酒年份" label-width="100px" prop="enName" required>
+        <el-form-item label="葡萄酒英文名" label-width="110px" prop="enName" required>
           <el-input v-model="enName"></el-input>
         </el-form-item>
-        <el-form-item label="葡萄酒介绍" label-width="100px" prop="intros" required>
+        <el-form-item label="葡萄酒介绍" label-width="110px" prop="intros" required>
           <el-input type="textarea" resize="none" :rows="5" v-model="intros"></el-input>
-        </el-form-item>
         </el-form-item>
         <el-form-item label="上传小图" prop="smallImage">
           <el-upload
@@ -76,7 +78,7 @@
             class="upload-demo"
             name="simage"
             multiple
-            ref="smallIamgeUpload"
+            ref="smallImageUpload"
             list-type="picture"
             :action="postFileUrl"
             :on-change="smallhandleChange"
@@ -95,7 +97,7 @@
             class="upload-demo"
             name="bimage"
             multiple
-            ref="largeIamgeUpload"
+            ref="largeImageUpload"
             list-type="picture"
             :action="postFileUrl"
             :on-change="largehandleChange"
@@ -114,7 +116,7 @@
             class="upload-demo"
             name="limage"
             multiple
-            ref="listIamgeUpload"
+            ref="listImageUpload"
             list-type="picture"
             :action="postFileUrl"
             :on-change="listhandleChange"
@@ -661,12 +663,10 @@
                   data: data
                 })
                 .then(function(response) {
-                  
-                  setTimeout(function(){
-
+        
                     _this.loading = false;
                     _this.dialogVisible = false;
-
+            
                     if(response.data === 'success'){
 
                       _this.tableData = _this.tableData.map(function(v, i) {
@@ -676,16 +676,13 @@
                         return v;
                       });
                       _this.$message.success('您已成功编辑一条产品！');
-
-                      _this.$refs.smallIamgeUpload.submit();
-                      _this.$refs.largeIamgeUpload.submit();
-                      _this.$refs.listIamgeUpload.submit();
-
-                      _this.$store.commit('EMPTYFORM');
+                      _this.$refs.smallImageUpload.submit();
+                      _this.$refs.largeImageUpload.submit();
+                      _this.$refs.listImageUpload.submit();
+                      
+                      _this.$store.commit('EMPTYFORM');      
 
                     }
-
-                  }, 1000);
                   
                 })
                 .catch(function (error) {

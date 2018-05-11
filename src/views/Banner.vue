@@ -163,25 +163,21 @@
 			    			})
 			    			.then(function(response) {
 
-			    				setTimeout(function(){
+		    					_this.loading = false;
 
-			    					_this.loading = false;
+		    					if(response.data === 'success'){
 
-			    					if(response.data === 'success'){
+		    						_this.$message.success('您已成功上传一条产品！');
 
-			    						_this.$message.success('您已成功上传一条产品！');
+		    						_this.$refs.bannerImageUpload.submit();
 
-			    						_this.$refs.bannerImageUpload.submit();
+									_this.$store.commit('EMPTYBANNER');
 
-										_this.$store.commit('EMPTYBANNER');
+		    					} else if(response.data === 'isRepeat'){
 
-			    					} else if(response.data === 'isRepeat'){
+		    						_this.$message.warning('这张图片的名字和已上传图片名字冲突，请选择新的图片上传！');
 
-			    						_this.$message.warning('这张图片的名字和已上传图片名字冲突，请选择新的图片上传！');
-
-			    					}
-
-			    				}, 1000);
+		    					}
 			    				
 			    			})
 			    			.catch(function (error) {

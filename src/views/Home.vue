@@ -131,4 +131,11 @@
         max-width: 250px;
         min-width: 206px;
     }
+    .el-table__body-wrapper{
+        overflow: hidden;
+    }
+    .loading-box{
+        width: 100%;
+        height: 100%;
+    }
 </style>

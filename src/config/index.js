@@ -17,7 +17,8 @@ const conf = {
 		getwines: baseUrl + 'getwines',
 		editwines: baseUrl + 'editwines',
 		deletewines: baseUrl + 'deletewines',
-		login: baseUrl + 'login'
+		login: baseUrl + 'login',
+		getmessage:　baseUrl + 'getmessage',
 	}
 }
 

@@ -7,6 +7,7 @@ const Banner = r => require.ensure([], () => r(require('@/views/Banner')), 'bann
 const EditBanner = r => require.ensure([], () => r(require('@/views/EditBanner')), 'editbanner')
 const AddActive = r => require.ensure([], () => r(require('@/views/AddActive')), 'addactive')
 const EditActive = r => require.ensure([], () => r(require('@/views/EditActive')), 'editactive')
+const MessageView = r => require.ensure([], () => r(require('@/views/MessageView')), 'MessageView')
 const NotFoundPage = r => require.ensure([], () => r(require('@/views/NotFoundPage')), '404')
 
 Vue.use(Router)
@@ -71,6 +72,15 @@ const router =  new Router({
 			path: '/editactive',
 			name: 'EditActive',
 			component: EditActive,
+			meta: { 
+				keepAlive: false,
+				requireAuth: true
+			}
+		},
+		{
+			path: '/messageview',
+			name: 'messageView',
+			component: MessageView,
 			meta: { 
 				keepAlive: false,
 				requireAuth: true

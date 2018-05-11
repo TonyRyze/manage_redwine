@@ -319,22 +319,18 @@
 			    			})
 			    			.then(function(response) {
 
-			    				setTimeout(function(){
+		    					_this.loading = false;
 
-			    					_this.loading = false;
+		    					if(response.data === 'success'){
 
-			    					if(response.data === 'success'){
+		    						_this.$message.success('您已成功上传一条产品！');
 
-			    						_this.$message.success('您已成功上传一条产品！');
+		    						_this.$refs.activeSmallIamgeUpload.submit();
+		    						_this.$refs.activeLargeIamgeUpload.submit();
 
-			    						_this.$refs.activeSmallIamgeUpload.submit();
-			    						_this.$refs.activeLargeIamgeUpload.submit();
+									_this.$store.commit('EMPTYACTIVE');
 
-										_this.$store.commit('EMPTYACTIVE');
-
-			    					}
-
-			    				}, 1000);
+		    					}
 			    				
 			    			})
 			    			.catch(function (error) {
