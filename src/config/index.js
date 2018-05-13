@@ -19,6 +19,10 @@ const conf = {
 		deletewines: baseUrl + 'deletewines',
 		login: baseUrl + 'login',
 		getmessage:　baseUrl + 'getmessage',
+		delmessage: baseUrl + 'delmessage',
+		uploadrecruitment: baseUrl + 'uploadrecruitment',
+		getrecruitment: baseUrl + 'getrecruitment',
+		delrecruitment: baseUrl + 'delrecruitment'
 	}
 }
 

@@ -6,36 +6,32 @@
         style="width: 100%">
         <el-table-column
             prop="date"
-            label="日期"
+            label="发布时间"
             width="180">
         </el-table-column>
         <el-table-column
-            prop="contacts"
-            label="联系人"
+            prop="name"
+            label="职位名称"
             width="180">
         </el-table-column>
         <el-table-column
-            prop="tel"
-            label="电话"
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="email"
-            label="邮箱"
+            prop="zhize"
+            label="岗位职责"
             width="300">
         </el-table-column>
         <el-table-column
-            prop="comments"
-            label="留言">
-        </el-table-column> 
-        <el-table-column label="操作" width="150">
-        <template scope="scope">
-          <el-button
-            size="small"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
+            prop="zige"
+            label="任职资格"
+            width="300">
+        </el-table-column>
+        <el-table-column label="操作">
+            <template scope="scope">
+            <el-button
+                size="small"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
     </el-table>
   </div>
 </template>
@@ -53,15 +49,15 @@
 
     data(){
         return {
-          actions: Conf.api.getmessage,
-          delActives: Conf.api.delmessage,
-          loading: true,
+          actions: Conf.api.getrecruitment,
+          delRecruitment: Conf.api.delrecruitment,
+          loading: false,
           tableData: []
         }
     },
 
     methods: {
-        getMessage(){
+        getRecruitment(){
             const _this = this;
             axios({
                 method: 'get',
@@ -92,7 +88,7 @@
                 _this.loading = true;
                 axios({
                     method: 'post',
-                    url: _this.delActives,
+                    url: _this.delRecruitment,
                     data: {
                         id: obj._id
                     }
@@ -143,9 +139,9 @@
     },
 
     mounted(){
-      this.getMessage();
+      this.getRecruitment();
       this.$nextTick(() => {
-        this.$store.commit('INITCRUMB', ['留言板'])
+        this.$store.commit('INITCRUMB', ['招聘管理', '查看职位'])
       });
     },
 

@@ -9,6 +9,7 @@ import banner from './modules/banner'
 import addActive from './modules/addActive'
 import login from './modules/login'
 import editActive from './modules/editActive'
+import addRecruitment from './modules/addRecruitment'
 import withSnapshot from '@/plugins/withSnapshot'
 
 Vue.use(Vuex)
@@ -26,7 +27,8 @@ export default new Vuex.Store({
 		editProduct,
 		banner,
 		addActive,
-		editActive
+		editActive,
+		addRecruitment
 	},
 	plugins: debug ? [withSnapshot] : []
 })

@@ -35,16 +35,19 @@
 					path: 'messageview'
 				}">留言板</el-menu-item>
 			<el-submenu index="6">
-				<template slot="title">公告管理</template>
-				<el-menu-item index="6-1">添加公告</el-menu-item>
-				<el-menu-item index="6-2">编辑公告</el-menu-item>
+				<template slot="title">招聘管理</template>
+				<el-menu-item index="6-1" :route="{
+					path: 'addrecruitment'
+				}">添加职位</el-menu-item>
+				<el-menu-item index="6-2" :route="{
+					path: 'editrecruitment'
+				}">查看职位</el-menu-item>
 			</el-submenu>
 			<el-submenu index="7">
-				<template slot="title">招聘管理</template>
-				<el-menu-item index="7-1">添加职位</el-menu-item>
-				<el-menu-item index="7-2">编辑职位</el-menu-item>
+				<template slot="title">公告管理</template>
+				<el-menu-item index="7-1">添加公告</el-menu-item>
+				<el-menu-item index="7-2">编辑公告</el-menu-item>
 			</el-submenu>
-			
 		</el-menu>
 	</div>
 </template>
