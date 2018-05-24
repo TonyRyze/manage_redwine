@@ -22,7 +22,10 @@ const conf = {
 		delmessage: baseUrl + 'delmessage',
 		uploadrecruitment: baseUrl + 'uploadrecruitment',
 		getrecruitment: baseUrl + 'getrecruitment',
-		delrecruitment: baseUrl + 'delrecruitment'
+		delrecruitment: baseUrl + 'delrecruitment',
+		uploadnotice: baseUrl + 'uploadnotice',
+		getnotice: baseUrl + 'getnotice',
+		delnotice: baseUrl + 'delnotice'
 	}
 }
 

@@ -45,8 +45,12 @@
 			</el-submenu>
 			<el-submenu index="7">
 				<template slot="title">公告管理</template>
-				<el-menu-item index="7-1">添加公告</el-menu-item>
-				<el-menu-item index="7-2">编辑公告</el-menu-item>
+				<el-menu-item index="7-1" :route="{
+					path: 'addNotice'
+				}">添加公告</el-menu-item>
+				<el-menu-item index="7-2" :route="{
+					path: 'editNotice'
+				}">编辑公告</el-menu-item>
 			</el-submenu>
 		</el-menu>
 	</div>

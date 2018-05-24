@@ -19,6 +19,7 @@
     "loader-utils": "^1.1.0",
     "strip-ansi": "^4.0.0",
     "vue": "^2.4.2",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^2.7.0"
   },
   "devDependencies": {
